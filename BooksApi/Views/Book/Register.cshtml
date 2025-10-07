@@ -1,0 +1,116 @@
+@using BooksApi.Dto
+
+@model BooksApi.Dto.BookCreationDto
+
+@* @if (TempData["MensagemSucesso"] != null) *@
+@* { *@
+@*     <div class="alert alert-success text-dark" role="alert"> *@
+@*         @TempData["MensagemSucesso"] *@
+@*     </div> *@
+@* } *@
+@* *@
+@* @if (TempData["MensagemErro"] != null) *@
+@* { *@
+@*     <div class="alert alert-danger text-dark" role="alert"> *@
+@*         @TempData["MensagemErro"] *@
+@*     </div> *@
+@* } *@
+
+
+<div class="container mt-5">
+    <form method="post" asp-action="Register" asp-controller="Book" enctype="multipart/form-data">
+        <h2>Register Book</h2>
+
+        <div class="text-center">
+            <label for="ImageFile">
+                <img id="img" style="width:150px; height:200px" />
+            </label>
+        </div>
+
+        <div class="mb-1">
+
+            <label class="form-label mt-3">Cover:</label>
+            <input type="file" id="ImageFile" name="photo" class="form-control shadow-none" />
+
+
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Title:</label>
+            <input type="text" asp-for="Title" class="form-control shadow-none">
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Author:</label>
+            <input type="text" asp-for="Author" class="form-control shadow-none">
+            <span class="text-danger" asp-validation-for="Author"></span>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Description:</label>
+            <textarea asp-for="Description" class="form-control shadow-none"></textarea>
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+        <div class="col-12 d-flex gap-1 w-100">
+            <div class="mb-1 col-6">
+                <label class="form-label">DatePublished:</label>
+                <input type="text" asp-for="DatePublished" class="form-control shadow-none">
+                <span class="text-danger" asp-validation-for="DatePublished"></span>
+            </div>
+            <div class="mb-1 col-6">
+                <label class="form-label">Genre:</label>
+                <input type="text" asp-for="Genre" class="form-control shadow-none">
+                <span class="text-danger" asp-validation-for="Genre"></span>
+            </div>
+        </div>
+        <div class="col-12 d-flex gap-1 w-100">
+            <div class="mb-1 col-6">
+                <label class="form-label">Stock:</label>
+                <input type="number" asp-for="Stock" class="form-control shadow-none" min="1">
+                <span class="text-danger" asp-validation-for="Stock"></span>
+            </div>
+             
+        </div>
+
+
+
+
+        <div class="btn-box d-flex mt-3">
+            <button type="submit" type="button" class="btn btn-success w-50 mx-1"><i class="bi bi-plus-circle"></i> Register</button>
+            <a type="submit" class="btn btn-info w-50" asp-controller="Book" asp-action="Index"><i class="bi bi-arrow-left-circle"></i> Back</a>
+        </div>
+
+    </form>
+</div>
+
+
+
+
+
+<script> //javascript code 
+
+
+    const inputFile = document.querySelector("#ImageFile"); //
+
+    inputFile.addEventListener("change", function (e) { 
+        const inputTarget = e.target;
+        const file = inputTarget.files[0];  //take the photo
+        
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function (e) {
+                const readerTarget = e.target;
+                const img = document.querySelector("#img");
+                img.src = readerTarget.result;
+
+                const figcaption = document.querySelector("#figcaption");
+                figcaption.innerHTML = file.name;
+            });
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+
+    )
+</script>

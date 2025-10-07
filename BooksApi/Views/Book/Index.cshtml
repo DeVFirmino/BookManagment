@@ -1,0 +1,79 @@
+@using BooksApi.Models
+@model IEnumerable<BooksModel>
+
+			
+
+ <div class="container mt-5"> 
+ 
+ <div class="btn-box d-flex justify-content-between align-items-center mb-3">
+    <h2> Register Books </h2>
+    <a class="btn btn-success" asp-action="Register" asp-controller="Book"><i class="bi bi-plus-circle"></i> Register new book </a>
+ </div>
+     <table class="table table-hover">
+         <thead>
+         <tr>
+             <th></th>
+             
+             <th>Title</th>
+             <th>Author</th>
+             <th>Genre</th>
+             <th>Stock</th>
+             <th>Register Date</th>
+             <th></th>
+         </tr>
+         </thead>
+         <tbody>
+         
+         @if(Model != null) 
+         {
+         @if(Model.Count() > 0) 
+         {
+         
+         @foreach(var book in Model) {
+             <tr>
+                 @if (book.Cover != null)
+                 {
+                     <td>
+                         <img src="image/@book.Cover" style="width:50px; height:50px"/>
+                     </td>
+                 }
+                 else
+                 {
+                     <td>
+                         
+                     </td>
+                 }
+                 
+                 <td><i class="bi bi-people"> </i>@book.Title</td>
+                 <td>@book.Author</td>
+                 <td>@book.Genre</td>
+                 <td><i class="bi bi-envelope-at"> </i>@book.Stock</td>
+                 <td><i class="bi bi-calendar"> </i>@book.RegisterDate</td>
+                 <td>
+                     <a class="btn btn-warning"><i class="bi bi-file-earmark-zip"></i>Details</a>
+                     <a class="btn btn-info"><i class="bi bi-pencil"></i>Edit</a>
+                 </td>
+             </tr>
+         
+         } 
+         <tr>
+             <td><i class="bi bi-people"> </i>The Secret Dinner</td>
+             <td>Raphael Montes</td>
+             <td>Thriller</td>
+             <td><i class="bi bi-envelope-at"> </i>10</td>
+             <td><i class="bi bi-calendar"> </i>1/10/2025</td>
+             <td>
+                 <a class="btn btn-warning"><i class="bi bi-file-earmark-zip"></i>Details</a>
+                 <a class="btn btn-primary"><i class="bi bi-pencil"></i>Edit</a>
+             </td>
+                 </tr>
+         
+         } else {
+         <tr>
+             <td colspan="6" class="text-center"> No books registered</td>
+         </tr>
+         }
+         }
+         </tbody>
+     </table>
+ </div> 
