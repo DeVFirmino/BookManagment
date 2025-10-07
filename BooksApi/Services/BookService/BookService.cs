@@ -1,3 +1,4 @@
+using AutoMapper;
 using BooksApi.Data;
 using BooksApi.Dto;
 using BooksApi.Models;
@@ -8,14 +9,17 @@ namespace BooksApi.Services.BookService;
 public class BookService : IBookInterface
 {
     private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     private string _serverWay;
 
-    public BookService(AppDbContext context, IWebHostEnvironment system)
+    public BookService(AppDbContext context, IWebHostEnvironment system, IMapper mapper)
     {
         _context = context;
         _serverWay = system.WebRootPath;
+        _mapper = mapper;
+        
     }
-
+    
     public BookService(AppDbContext context)
     {
         _context = context;
@@ -68,16 +72,19 @@ public class BookService : IBookInterface
             }
 
 
-            var book = new BooksModel
-            {
-                Title = bookCreationDto.Title,
-                Cover = fileName,
-                Author = bookCreationDto.Author,
-                Description = bookCreationDto.Description,
-                Stock = bookCreationDto.Stock,
-                DatePublished = bookCreationDto.DatePublished,
-                Genre = bookCreationDto.Genre,
-            };
+            // var book = new BooksModel
+            // {
+            //     Title = bookCreationDto.Title,
+            //     Cover = fileName,
+            //     Author = bookCreationDto.Author,
+            //     Description = bookCreationDto.Description,
+            //     Stock = bookCreationDto.Stock,
+            //     DatePublished = bookCreationDto.DatePublished,
+            //     Genre = bookCreationDto.Genre,
+            // }; 
+
+            var book = _mapper.Map<BooksModel>(bookCreationDto);
+            book.Cover = fileName;
 
             _context.Add(book);
             await _context.SaveChangesAsync();

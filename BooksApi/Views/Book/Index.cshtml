@@ -9,7 +9,7 @@
     <h2> Register Books </h2>
     <a class="btn btn-success" asp-action="Register" asp-controller="Book"><i class="bi bi-plus-circle"></i> Register new book </a>
  </div>
-     <table class="table table-hover">
+     <table class="table table-hover" id="books">
          <thead>
          <tr>
              <th></th>
@@ -56,17 +56,6 @@
              </tr>
          
          } 
-         <tr>
-             <td><i class="bi bi-people"> </i>The Secret Dinner</td>
-             <td>Raphael Montes</td>
-             <td>Thriller</td>
-             <td><i class="bi bi-envelope-at"> </i>10</td>
-             <td><i class="bi bi-calendar"> </i>1/10/2025</td>
-             <td>
-                 <a class="btn btn-warning"><i class="bi bi-file-earmark-zip"></i>Details</a>
-                 <a class="btn btn-primary"><i class="bi bi-pencil"></i>Edit</a>
-             </td>
-                 </tr>
          
          } else {
          <tr>
