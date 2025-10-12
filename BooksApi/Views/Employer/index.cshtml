@@ -1,0 +1,97 @@
+@* 
+    This Razor View displays a list of registered Employers.  
+    - If there are no employers, it shows a "No employer registered!" message.  
+    - If employers exist, it renders them in a table with details such as:  
+        • Username  
+        • Full Name  
+        • State (from Address, or "-" if null)  
+        • Email  
+        • Created At (formatted as dd-MM-yyyy)  
+    - It also shows whether each employer is Active or Inactive using icons.  
+    - Each row has action buttons for:  
+        • Details (navigates to Client/Details)  
+        • Edit (navigates to Client/Edit)  
+    - A button at the top allows registering a new employee.  
+
+    Purpose: To provide an overview and management UI for Employers.  
+*@
+
+@using BooksApi.Models
+
+@model IEnumerable<UserModel>
+
+<h1>Employer Registration!</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        
+        <a asp-controller="User" asp-action="Register" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Register new employee
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div>No employer registered!</div>
+}
+else
+{
+    <table class="table table-hover" id="registers">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>State</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Details</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var employer in Model)
+        {
+            <tr>
+                <td>
+                    @if (employer.IsActive)
+                    {
+                        <i class="bi bi-check-circle-fill" title="Active"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-x-circle-fill" title="Inactive"></i>
+                    }
+                </td>
+                <td>@employer.Username</td>
+                <td>@employer.FullName</td>
+                <td>@(employer.Address != null ? employer.Address.State : "-")</td>
+                <td>@employer.Email</td>
+                <td>@employer.CreatedAt.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-controller="User" asp-route-id="@employer.Id" class="btn btn-info">Details</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="User" asp-route-id="@employer.Id" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+            
+    
+    </tbody>
+    </table>
+}

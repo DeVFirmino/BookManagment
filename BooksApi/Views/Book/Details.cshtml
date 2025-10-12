@@ -1,0 +1,53 @@
+@using BooksApi.Models
+@model BooksModel
+
+<div class="container mt-5">
+    <h2>Book Details - @Model.Title</h2>
+
+    <div class="text-center">
+        <img src="/image/@Model.Cover" style="width:150px; height:200px" alt="Book cover" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Title:</label>
+        <input type="text" asp-for="Title" class="form-control shadow-none" disabled>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Author:</label>
+        <input type="text" asp-for="Author" class="form-control shadow-none" disabled>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Description:</label>67756
+        <textarea asp-for="Description" class="form-control shadow-none" disabled></textarea>
+    </div>
+
+    <div class="row">
+        <div class="col-6 mb-3">
+            <label class="form-label">Date Published:</label>
+            <input type="text" asp-for="DatePublished" class="form-control shadow-none" disabled>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label">Genre:</label>
+            <input type="text" asp-for="Genre" class="form-control shadow-none" disabled>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 mb-3">
+            <label class="form-label">Stock:</label>
+            <input type="number" asp-for="Stock" class="form-control shadow-none" disabled>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label">Register Date:</label>
+            <input type="text" value="@Model.RegisterDate.ToString("dd/MM/yyyy")" class="form-control shadow-none" disabled>
+        </div>
+    </div>
+
+    <div class="btn-box d-flex mt-3">
+        <a class="btn btn-info w-100" asp-controller="Book" asp-action="Index">
+            <i class="bi bi-arrow-left-circle"></i> Back
+        </a>
+    </div>
+</div>

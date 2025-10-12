@@ -1,0 +1,78 @@
+ @using BooksApi.Models
+@using BooksApi.Enums
+@using System.Linq
+@model BorrowModel
+ 
+@{
+    Layout = ViewBag.LayoutPage;
+}
+
+<div class="container d-flex gap-5 justify-content-center align-items-center mt-5">
+    <div class="img">
+        <img src="/image/@Model.Book.Cover" style="width:350px; height:550px; border-radius:10px" />
+    </div>
+    <div>
+        <h2 style="font-size:22px">@Model.Book.Title</h2>
+        <h3>@Model.Book.Author</h3>
+        <p>@Model.Book.Description</p>
+        <h5>Year published: @Model.Book.DatePublished</h5>
+
+        <div>
+            <p>Stock quantity: @Model.Book.Stock</p>
+
+            @if (Model.User != null)
+            {
+                @if (Model.User.Profile == ProfileEnum.Client)
+                {
+                    @* If controller set ViewBag.Borrow = "NoBorrow" when user has no borrow history *@
+                    @if (ViewBag.Borrow != "NoBorrow")
+                    {
+                        @* Prevent borrowing the same book twice simultaneously *@
+                        @if (Model.User.Borrow
+                                 .Where(b => b.BookId == Model.Book.Id
+                                             && b.ReturnDate == null
+                                             && b.User.Id == ViewBag.LoggedUser).Count() > 0)
+                        {
+                            <button class="btn btn-warning w-10" style="border-radius:10px" disabled>
+                                You already borrowed this book!
+                            </button>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success w-10" style="border-radius:10px"
+                               asp-action="Borrow" asp-controller="Borrow" asp-route-id="@Model.Book.Id">
+                                Borrow
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn btn-success w-10" style="border-radius:10px"
+                           asp-action="Borrow" asp-controller="Borrow" asp-route-id="@Model.Book.Id">
+                            Borrow
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a class="btn btn-success w-10" style="border-radius:10px"
+                       asp-action="Details" asp-controller="Book" asp-route-id="@Model.Book.Id">
+                        View Details
+                    </a>
+                }
+            }
+            else
+            {
+                <a class="btn btn-success w-10" style="border-radius:10px"
+                   asp-action="Login" asp-controller="Home">
+                    You must be logged in to borrow books!
+                </a>
+            }
+
+            <a class="btn btn-primary w-10" style="border-radius:10px"
+               asp-action="Index" asp-controller="Home">
+                Back
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+@using BooksApi.Models
+@model IEnumerable<BooksModel>
+
+@{
+    Layout = ViewBag.PageLayout;
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="py-5">
+    <div class="container">
+        
+        @*  — Quote of the Day *@
+        @if (ViewBag.Quote != null)
+        {
+            <div class="alert alert-info text-center mb-4 shadow-sm" style="font-style: italic; border-radius:10px;">
+                “@ViewBag.Quote.content” — <strong>@ViewBag.Quote.author</strong>
+            </div>
+        }
+        
+        <div class="text-center mb-5">
+            <form method="get" asp-action="Index" asp-controller="Home" class="d-flex justify-content-center">
+                <input name="search" class="form-control w-50 mx-2" style="border:1px solid black; border-radius: 10px"/>
+                <button type="submit" class="btn btn-primary w-10" style="border-radius:10px">Search</button>
+            </form>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-0">
+            @if (Model != null)
+            {
+                if (Model.Count() > 0)
+                {
+                    @foreach (var book in Model.Where(book => book.Stock > 0).ToList())
+                    {
+                        <div class="card" style="width:18rem; margin-left: 20px; margin-bottom:20px">
+                            <img src="@Url.Content($"~/image/{(string.IsNullOrWhiteSpace(book.Cover) ? "default.png" : book.Cover)}")"
+                                 alt="@book.Title cover" class="card-img-top" style="width:178px; height:250px; border-radius:10px"
+                                 asp-append-version="true"/>
+                            <div class="card-body">
+                                <h5 class="card-title">@book.Title</h5>
+                                <p class="card-text">@book.Author</p>
+                                <a class="btn btn-primary w-100" style="font-size:16px" asp-action="Details" asp-controller="Home" asp-route-id="@book.Id">Details</a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center">No books available.</p>
+                }
+            }
+        </div>
+    </div>
+</div>

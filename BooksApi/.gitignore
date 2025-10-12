@@ -1,0 +1,22 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# IDE caches
+.idea/
+.vs/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+/wwwroot/*.map
+

@@ -9,7 +9,7 @@
     <h2> Register Books </h2>
     <a class="btn btn-success" asp-action="Register" asp-controller="Book"><i class="bi bi-plus-circle"></i> Register new book </a>
  </div>
-     <table class="table table-hover" id="books">
+     <table class="table table-hover" id="registers">
          <thead>
          <tr>
              <th></th>
@@ -50,19 +50,23 @@
                  <td><i class="bi bi-envelope-at"> </i>@book.Stock</td>
                  <td><i class="bi bi-calendar"> </i>@book.RegisterDate</td>
                  <td>
-                     <a class="btn btn-warning"><i class="bi bi-file-earmark-zip"></i>Details</a>
-                     <a class="btn btn-info"><i class="bi bi-pencil"></i>Edit</a>
-                 </td>
+    <a class="btn btn-warning btn-sm" asp-action="Details" asp-controller="Book" asp-route-id="@book.Id">
+        <i class="bi bi-eye"></i> Details
+    </a>
+    <a class="btn btn-info btn-sm" asp-action="Edit" asp-controller="Book" asp-route-id="@book.Id">
+        <i class="bi bi-pencil"></i> Edit
+    </a>
+</td>
              </tr>
          
          } 
          
          } else {
          <tr>
-             <td colspan="6" class="text-center"> No books registered</td>
+             <td colspan="7" class="text-center"> No books registered</td>
          </tr>
          }
          }
          </tbody>
      </table>
- </div> 
+ </div>
