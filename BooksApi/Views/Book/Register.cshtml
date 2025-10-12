@@ -4,96 +4,130 @@
 
 @if (TempData["SucessMessage"] != null)
 {
-    <div class="alert alert-success text-dark" role="alert">
+    <div class="alert alert-success" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
         @TempData["SucessMessage"]
     </div>
 }
 
 @if (TempData["ErrorMesage"] != null)
 {
-    <div class="alert alert-danger text-dark" role="alert">
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
         @TempData["ErrorMesage"]
     </div>
 }
 
 
 <div class="container mt-5">
-    <form method="post" asp-action="Register" asp-controller="Book" enctype="multipart/form-data">
-        <h2>Register Book</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-custom">
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <h2 class="mb-0">
+                            <i class="bi bi-book-half me-2 gradient-text"></i>Register New Book
+                        </h2>
+                        <p class="text-muted mb-0">Add a new book to your collection</p>
+                    </div>
 
-        <div class="text-center">
-            <label for="ImageFile">
-                <img id="img" style="width:150px; height:200px" />
-            </label>
-        </div>
+                    <form method="post" asp-action="Register" asp-controller="Book" enctype="multipart/form-data">
 
-        <div class="mb-1">
+                        <div class="text-center mb-4">
+                            <label for="ImageFile" style="cursor: pointer;">
+                                <div class="position-relative d-inline-block">
+                                    <img id="img" style="width:200px; height:280px; object-fit: cover; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15);"
+                                         src="~/image/default.png" alt="Book Cover Preview"/>
+                                    <div class="position-absolute bottom-0 end-0 mb-2 me-2">
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-camera-fill"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                            <p class="text-muted small mt-2" id="figcaption">Click to upload cover image</p>
+                        </div>
 
-            <label class="form-label mt-3">Cover:</label>
-            <input type="file" id="ImageFile" name="photo" class="form-control shadow-none" />
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-image me-2"></i>Book Cover
+                            </label>
+                            <input type="file" id="ImageFile" name="photo" class="form-control" accept="image/*" />
+                        </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-book me-2"></i>Title
+                            </label>
+                            <input type="text" asp-for="Title" class="form-control" placeholder="Enter book title">
+                            <span class="text-danger small" asp-validation-for="Title"></span>
+                        </div>
 
-        </div>
-        <div class="mb-1">
-            <label class="form-label">Title:</label>
-            <input type="text" asp-for="Title" class="form-control shadow-none">
-            <span class="text-danger" asp-validation-for="Title"></span>
-        </div>
-        <div class="mb-1">
-            <label class="form-label">Author:</label>
-            <input type="text" asp-for="Author" class="form-control shadow-none">
-            <span class="text-danger" asp-validation-for="Author"></span>
-        </div>
-        <div class="mb-1">
-            <label class="form-label">Description:</label>
-            <textarea asp-for="Description" class="form-control shadow-none"></textarea>
-            <span class="text-danger" asp-validation-for="Description"></span>
-        </div>
-        <div class="col-12 d-flex gap-1 w-100">
-            <div class="mb-1 col-6">
-                <label class="form-label">DatePublished:</label>
-                <input type="text" asp-for="DatePublished" class="form-control shadow-none">
-                <span class="text-danger" asp-validation-for="DatePublished"></span>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person me-2"></i>Author
+                            </label>
+                            <input type="text" asp-for="Author" class="form-control" placeholder="Enter author name">
+                            <span class="text-danger small" asp-validation-for="Author"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-text-paragraph me-2"></i>Description
+                            </label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter book description"></textarea>
+                            <span class="text-danger small" asp-validation-for="Description"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-calendar-event me-2"></i>Date Published
+                                </label>
+                                <input type="text" asp-for="DatePublished" class="form-control" placeholder="YYYY-MM-DD">
+                                <span class="text-danger small" asp-validation-for="DatePublished"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-tag me-2"></i>Genre
+                                </label>
+                                <input type="text" asp-for="Genre" class="form-control" placeholder="Enter genre">
+                                <span class="text-danger small" asp-validation-for="Genre"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-box me-2"></i>Stock Quantity
+                                </label>
+                                <input type="number" asp-for="Stock" class="form-control" min="1" placeholder="Enter stock quantity">
+                                <span class="text-danger small" asp-validation-for="Stock"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-success flex-fill">
+                                <i class="bi bi-plus-circle me-2"></i>Register Book
+                            </button>
+                            <a class="btn btn-secondary flex-fill" asp-controller="Book" asp-action="Index">
+                                <i class="bi bi-arrow-left-circle me-2"></i>Cancel
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            <div class="mb-1 col-6">
-                <label class="form-label">Genre:</label>
-                <input type="text" asp-for="Genre" class="form-control shadow-none">
-                <span class="text-danger" asp-validation-for="Genre"></span>
-            </div>
         </div>
-        <div class="col-12 d-flex gap-1 w-100">
-            <div class="mb-1 col-6">
-                <label class="form-label">Stock:</label>
-                <input type="number" asp-for="Stock" class="form-control shadow-none" min="1">
-                <span class="text-danger" asp-validation-for="Stock"></span>
-            </div>
-             
-        </div>
-
-
-
-
-        <div class="btn-box d-flex mt-3">
-            <button type="submit" type="button" class="btn btn-success w-50 mx-1"><i class="bi bi-plus-circle"></i> Register</button>
-            <a type="submit" class="btn btn-info w-50" asp-controller="Book" asp-action="Index"><i class="bi bi-arrow-left-circle"></i> Back</a>
-        </div>
-
-    </form>
+    </div>
 </div>
 
+<script>
+    const inputFile = document.querySelector("#ImageFile");
 
-
-
-
-<script> //javascript code 
-
-
-    const inputFile = document.querySelector("#ImageFile"); //
-
-    inputFile.addEventListener("change", function (e) { 
+    inputFile.addEventListener("change", function (e) {
         const inputTarget = e.target;
-        const file = inputTarget.files[0];  //take the photo
-        
+        const file = inputTarget.files[0];
 
         if (file) {
             const reader = new FileReader();
@@ -109,8 +143,5 @@
 
             reader.readAsDataURL(file);
         }
-    }
-
-
-    )
+    });
 </script>

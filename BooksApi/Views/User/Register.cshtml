@@ -1,0 +1,208 @@
+@using BooksApi.Enums
+@using BooksApi.Dto.User
+ 
+@model BooksApi.Dto.User.UserCreationDto
+ 
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+
+<div class="container mt-5">
+    <form method="post" asp-action="Register" asp-controller="User">
+
+        @if (ViewBag.Profile != ProfileEnum.Client)
+        {
+            <h2>Employee register</h2>
+        }
+        else
+        {
+            <h2>Client register</h2>
+        }
+
+        <div class="mb-1">
+            <label>Full Name:</label>
+            <input type="text" asp-for="FullName" class="form-control shadow-none"/>
+            <span class="text-danger" asp-validation-for="FullName"></span>
+        </div>
+
+        <div class="mb-1">
+            <label>User:</label>
+            <input type="text" asp-for="Username" class="form-control shadow-none" />
+            <span class="text-danger" asp-validation-for="Username"></span>
+        </div>
+
+
+        <div class="mb-1">
+            <label>E-mail:</label>
+            <input type="email" asp-for="Email" class="form-control shadow-none" />
+            <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+
+
+        @if(ViewBag.Profile != ProfileEnum.Client)
+        {
+            <div class="mb-1">
+                <label>Profile:</label>
+                <select asp-for="Profile" class="form-control shadow-none">
+                    <option value="Administrator" selected>Administrator</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Profile"></span>
+            </div>
+
+            @* <div class="mb-1"> *@
+            @*     <label>Turno:</label> *@
+            @*     <select asp-for="Turno" class="form-control shadow-none"> *@
+            @*         <option value="Manha" selected>Manhã</option> *@
+            @*         <option value="Tarde" >Tarde</option> *@
+            @*         <option value="Madrugada" >Madrugada</option> *@
+            @*     </select> *@
+            @*     <span class="text-danger" asp-validation-for="Turno"></span> *@
+            @* </div> *@
+        }
+
+        <div class="col-12 d-flex gap-1 w-100">
+
+            <div class="mb-1 col-6">
+                <label>ZipCode:</label>
+                <input type="text" asp-for="ZipCode" class="form-control shadow-none" id="input-zipcode" />
+                <span class="text-danger" asp-validation-for="ZipCode"></span>
+            </div>
+
+
+            <div class="mb-1 col-6">
+                <label>State:</label>
+                <input type="text" asp-for="State" class="form-control shadow-none" id="input-state" />
+                <span class="text-danger" asp-validation-for="State"></span>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex gap-1 w-100">
+
+            <div class="mb-1 col-8">
+                <label>Street:</label>
+                <input type="text" asp-for="Street" class="form-control shadow-none" id="input-street" />
+                <span class="text-danger" asp-validation-for="Street"></span>
+            </div>
+
+
+            <div class="mb-1 col-4">
+                <label>Number:</label>
+                <input type="text" asp-for="Number" class="form-control shadow-none" />
+                <span class="text-danger" asp-validation-for="Number"></span>
+            </div>
+        </div>
+
+
+        <div class="col-12 d-flex gap-1 w-100">
+
+            <div class="mb-1 col-6">
+                <label>City:</label>
+                <input type="text" asp-for="City" class="form-control shadow-none" id="input-city" />
+                <span class="text-danger" asp-validation-for="City"></span>
+            </div>
+
+
+            @* <div class="mb-1 col-6"> *@
+            @*     <label>Complemento:</label> *@
+            @*     <input type="text" asp-for="Complemento" class="form-control shadow-none" id="input-complemento" /> *@
+            @*     <span class="text-danger" asp-validation-for="Complemento"></span> *@
+            @* </div> *@
+        </div>
+
+        <div class="mb-1">
+            <label>Password:</label>
+            <input type="password" asp-for="Password" class="form-control shadow-none" />
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+
+        <div class="mb-1">
+            <label>Confirm Password:</label>
+            <input type="password" asp-for="ConfirmPassword" class="form-control shadow-none" />
+            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+        </div>
+
+        <div class="d-flex mt-3">
+            <button type="submit" class="btn btn-success w-50 mx-1"><i class="bi bi-plus-circle"></i>Register!</button>
+
+
+            @if (ViewBag.Profile == ProfileEnum.Client && ViewBag.Id == 0)
+            {
+                <a class="btn btn-info w-50" asp-controller="Client" asp-action="Index" asp-route-id="0"><i class="bi bi-arrow-left-circle"></i>Back</a>
+            }
+            else if (ViewBag.Profile == ProfileEnum.Client && ViewBag.Id != 0)
+            {
+                <a class="btn btn-info w-50" asp-controller="Home" asp-action="Login" asp-route-id="0"><i class="bi bi-arrow-left-circle"></i>Back</a>
+            }
+            else
+            {
+                <a class="btn btn-info w-50" asp-controller="Employer" asp-action="Index" asp-route-id="0"><i class="bi bi-arrow-left-circle"></i>Back</a>
+            }
+
+        </div>
+    </form>
+</div>
+
+<script>
+  // Vanilla JS postcode lookup via postcodes.io  
+  document.addEventListener('DOMContentLoaded', function () {
+    const zip    = document.getElementById('input-zipcode');
+    const city   = document.getElementById('input-city');
+    const state  = document.getElementById('input-state');
+    // const street = document.getElementById('input-street'); // optional fallback
+
+    // if (!zip || !city || !state) {
+    //   console.warn('Register.cshtml: missing one or more inputs (#input-zipcode, #input-city, #input-state).');
+    //   return;
+    // }
+
+    async function lookupPostcode(raw) {
+      const normalized = (raw || '').trim().replace(/\s+/g, '').toUpperCase();
+      if (!normalized) return;
+
+      try {
+          // call the postcodes.io public API with the given postcode
+         const resp = await fetch(`https://api.postcodes.io/postcodes/${normalized}`);
+          // convert response to JSON
+         const data = await resp.json();
+            
+        if (data && data.status === 200 && data.result) {
+          const r = data.result;
+
+          // City: prefer post_town; fallback to admin_district/admin_ward
+          const cityVal  = r.post_town || r.admin_district || r.admin_ward || '';
+          // State/Region: prefer region; fallback to country
+          const stateVal = r.region || r.country || '';
+
+          city.value  = cityVal;
+          state.value = stateVal;
+
+          // // Street is not provided by postcodes.io;  
+          // if (street && !street.value) {
+          //   street.value = r.parish || '';
+          // }
+        } else {
+          console.warn('Invalid UK postcode:', raw, data);
+        }
+      } catch (err) {
+        console.error('Error calling postcodes.io:', err);
+      }
+    }
+
+    // Trigger lookup when the user leaves the postcode field, and also on change
+    zip.addEventListener('blur',   (e) => lookupPostcode(e.target.value));
+    zip.addEventListener('change', (e) => lookupPostcode(e.target.value));
+  });
+</script>

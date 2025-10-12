@@ -1,0 +1,35 @@
+@using BooksApi.Enums
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-dark" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Reports</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-0">
+            @foreach (var report in Enum.GetValues(typeof(ReportEnum)))
+            {
+                <div class="card" style="width:40rem; margin-left: 20px; margin-bottom: 20px">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" style="font-size:11px">@report.ToString()</h5>
+                        <a class="btn btn-success w-100" style="font-size: 12px" 
+                           asp-controller="Report" asp-action="Generate" asp-route-id="@report.GetHashCode()">
+                            Excel
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

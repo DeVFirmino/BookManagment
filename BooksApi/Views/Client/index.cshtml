@@ -1,0 +1,93 @@
+@* 
+    This Razor View displays a list of registered Clients.  
+    - Shows success or error messages if available.  
+    - If no clients are registered, displays a "No Clients Registered!" message.  
+    - Provides a button at the top to register a new client (routes to User/Register with profile=Client).  
+    - If clients exist, renders them in a table with the following columns:  
+        • Status (Active / Inactive, using icons)  
+        • Username  
+        • Full Name  
+        • State (from Address, or "-" if null)  
+        • Email  
+        • Created At (formatted dd-MM-yyyy)  
+        • Action buttons (Details, Edit)  
+    - Each client row links to the Client controller for "Details" and "Edit".  
+
+    Purpose: To manage and display the list of Clients in the system.  
+*@
+
+@using BooksApi.Models
+@using BooksApi.Dto
+@model IEnumerable<UserModel>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Client Registration!</h2>
+    <a asp-controller="User" asp-action="Register" asp-route-profile="Client" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Register new client
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+@if (Model == null || !Model.Any())
+{
+    <div>No Clients Registered!</div>
+}
+else
+{
+    <table class="table table-hover" id="registers">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>State</th>
+                <th>Email</th>
+                <th>Created At</th>
+                <th>Details</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in Model)
+            {
+                <tr>
+                    <td>
+                        @if (client.IsActive)
+                        {
+                            <i class="bi bi-check-circle-fill" title="Active"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-circle-fill" title="Inactive"></i>
+                        }
+                    </td>
+                    <td>@client.Username</td>
+                    <td>@client.FullName</td>
+                    <td>@(client.Address != null ? client.Address.State : "-")</td>
+                    <td>@client.Email</td>
+                    <td>@client.CreatedAt.ToString("dd-MM-yyyy")</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="User" asp-route-id="@client.Id" class="btn btn-info">Details</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="User" asp-route-id="@client.Id" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
