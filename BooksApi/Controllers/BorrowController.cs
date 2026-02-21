@@ -55,6 +55,12 @@ namespace BooksApi.Controllers
 
             var borrow = await _borrowInterface.Borrow(id);
 
+            if (!borrow.Status)
+            {
+                TempData["ErrorMessage"] = borrow.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             TempData["SuccessMessage"] = "Borrowing completed successfully!";
 
             return RedirectToAction("Index", "Home");
