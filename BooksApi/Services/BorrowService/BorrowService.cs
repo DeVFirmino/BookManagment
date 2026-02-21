@@ -65,6 +65,20 @@ public class BorrowService : IBorrowInterface
 
             var book = await _bookInterface.SearchBookById(bookId);
 
+            if (book == null)
+            {
+                response.Status = false;
+                response.Message = "Book not found!";
+                return response;
+            }
+
+            if (book.Stock <= 0)
+            {
+                response.Status = false;
+                response.Message = "Book unavailable for borrowing!";
+                return response;
+            }
+
             var borrow = new BorrowModel
             {
                 UserId = sessionUser.Id,
