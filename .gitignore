@@ -4,3 +4,10 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .fake
+# IDE
+.idea/
+*.DotSettings.user
+.vs/
+
+# OS
+.DS_Store
