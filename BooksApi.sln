@@ -2,15 +2,44 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksApi", "BooksApi\BooksApi.csproj", "{18AC5CAD-8208-4B6E-9441-0256DD8B167E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksApi.Tests", "BooksApi.Tests\BooksApi.Tests.csproj", "{A9A84CAB-F664-4376-ACFC-992AC091C335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|x64.Build.0 = Debug|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Debug|x86.Build.0 = Debug|Any CPU
 		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|x64.ActiveCfg = Release|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|x64.Build.0 = Release|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|x86.ActiveCfg = Release|Any CPU
+		{18AC5CAD-8208-4B6E-9441-0256DD8B167E}.Release|x86.Build.0 = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|x64.Build.0 = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Debug|x86.Build.0 = Debug|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|x64.ActiveCfg = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|x64.Build.0 = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|x86.ActiveCfg = Release|Any CPU
+		{A9A84CAB-F664-4376-ACFC-992AC091C335}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
