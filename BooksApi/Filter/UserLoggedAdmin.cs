@@ -56,7 +56,7 @@ public class UserLoggedAdmin : ActionFilterAttribute
                     {"action", "login"}
                 });
             }
-            else if (user.Profile == ProfileEnum.Administrator)
+            else if (user.Profile != ProfileEnum.Administrator)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {

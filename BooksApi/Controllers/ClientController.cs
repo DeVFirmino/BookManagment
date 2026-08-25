@@ -43,13 +43,13 @@ public class ClientController : Controller
         _borrowInterface = borrowInterface;
     }
 
+    [UserLoggedAdmin]
     public async Task<ActionResult> Index(int? id)
     {
         var clients = await _userInterface.FindUsers(id);
         return View(clients);
     }
-    
-    [UserLoggedAdmin]
+
     public async Task<ActionResult> Profile(string search = null, string filter = "NotReturned")
     {
         var sessionUser = _sessionInterface.FindSession();
