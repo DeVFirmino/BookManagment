@@ -52,7 +52,7 @@ builder.Services.AddScoped<IHomeInterface, HomeService>();
 builder.Services.AddScoped<IBorrowInterface, BorrowService>();
 builder.Services.AddScoped<IReportInterface, ReportService>();
 
-builder.Services.AddAutoMapper(typeof(Program)); //mapping t
+builder.Services.AddAutoMapper(configuration => { }, typeof(Program)); // scans this assembly for Profile classes
 
 builder.Services.AddSession(options =>
 {
