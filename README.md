@@ -13,11 +13,11 @@ An ASP.NET Core 9.0 MVC application for managing a small library. Users can brow
 ## Who can open which page
 Login stores the user as JSON in the session, and three action filters in [`BooksApi/Filter`](BooksApi/Filter) read it before an action runs:
 
-- `UserLogged` sends anyone without a session to the login page.
-- `UserLoggedClient` sends a client back to the home page. It guards the admin pages: books, employers, reports and user management.
-- `UserLoggedAdmin` lets only administrators through. It guards the client list.
+- `UserLogged` sends a visitor with no session to the login page.
+- `UserLoggedClient` guards the admin pages: books, employers, reports and user management. An administrator goes through, and a client is sent back to the home page.
+- `UserLoggedAdmin` guards the client list. Only an administrator goes through.
 
-[`UserLoggedAdminTests`](BooksApi.Tests/Filter/UserLoggedAdminTests.cs) covers the admin filter: an administrator gets through, a client is redirected to the home page and a visitor with no session is redirected to login. Run them with `dotnet test`.
+[`UserLoggedAdminTests`](BooksApi.Tests/Filter/UserLoggedAdminTests.cs) covers `UserLoggedAdmin` only: an administrator gets through, a client is redirected to the home page and a visitor with no session is redirected to login. Run them with `dotnet test`.
 
 ## Tech stack
 - **Framework:** ASP.NET Core 9.0 MVC
