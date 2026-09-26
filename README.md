@@ -10,6 +10,15 @@ An ASP.NET Core 9.0 MVC application for managing a small library. Users can brow
 - **Reports** that export borrowing and inventory data via ClosedXML.
 - **Random motivational quotes** on the home page using Quotable/DummyJSON as fallbacks.
 
+## Who can open which page
+Login stores the user as JSON in the session, and three action filters in [`BooksApi/Filter`](BooksApi/Filter) read it before an action runs:
+
+- `UserLogged` sends anyone without a session to the login page.
+- `UserLoggedClient` sends a client back to the home page. It guards the admin pages: books, employers, reports and user management.
+- `UserLoggedAdmin` lets only administrators through. It guards the client list.
+
+[`UserLoggedAdminTests`](BooksApi.Tests/Filter/UserLoggedAdminTests.cs) covers the admin filter: an administrator gets through, a client is redirected to the home page and a visitor with no session is redirected to login. Run them with `dotnet test`.
+
 ## Tech stack
 - **Framework:** ASP.NET Core 9.0 MVC
 - **Data access:** Entity Framework Core 9 with SQL Server
