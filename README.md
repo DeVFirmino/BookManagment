@@ -1,6 +1,6 @@
 # Book Management
 
-An ASP.NET Core 9.0 MVC application for managing a small library. Users can browse the catalog, borrow and return books, manage their profiles and addresses, and administrators can monitor inventory and generate Excel-style reports.
+This ASP.NET Core MVC app handles library loans and returns. Start with its client-list tests to see how the session filter treats an administrator, a signed-in client and a visitor.
 
 ## Features
 - **Public catalog** with search and detailed book pages that include cover images and publication data.
